@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Cardboard/DemoScene/DemoScene.unity
   - enabled: 1
     path: Assets/Scenes/Introduction.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Episode1.unity
