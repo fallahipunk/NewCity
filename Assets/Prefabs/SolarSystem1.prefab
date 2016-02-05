@@ -79,6 +79,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 462374}
   - 114: {fileID: 11487868}
+  - 114: {fileID: 11469728}
   m_Layer: 0
   m_Name: SolarSystem1
   m_TagString: Untagged
@@ -129,11 +130,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.9, z: 0}
+  m_LocalPosition: {x: -5.94, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 462374}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!4 &452556
 Transform:
   m_ObjectHideFlags: 1
@@ -157,7 +158,7 @@ Transform:
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children: []
   m_Father: {fileID: 462374}
-  m_RootOrder: 4
+  m_RootOrder: 1
 --- !u!4 &462374
 Transform:
   m_ObjectHideFlags: 1
@@ -165,15 +166,15 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 18, y: 0, z: -171}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 452556}
+  - {fileID: 458770}
+  - {fileID: 486348}
   - {fileID: 465488}
   - {fileID: 431890}
   - {fileID: 487282}
-  - {fileID: 458770}
-  - {fileID: 486348}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &465488
@@ -183,11 +184,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: -3.88, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 462374}
-  m_RootOrder: 1
+  m_RootOrder: 3
 --- !u!4 &486348
 Transform:
   m_ObjectHideFlags: 1
@@ -199,7 +200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 462374}
-  m_RootOrder: 5
+  m_RootOrder: 2
 --- !u!4 &487282
 Transform:
   m_ObjectHideFlags: 1
@@ -211,7 +212,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 462374}
-  m_RootOrder: 3
+  m_RootOrder: 5
 --- !u!23 &2322784
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -248,7 +249,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7be7d0f479bc54ad3aafd8501fa9ab10, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -274,7 +275,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7be7d0f479bc54ad3aafd8501fa9ab10, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -300,7 +301,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7be7d0f479bc54ad3aafd8501fa9ab10, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -363,6 +364,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11469728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8905f5cc9e32c4b098aca33b8e768291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverMaterial: {fileID: 2100000, guid: 32598f9741d3640b991c740bdd833408, type: 2}
+  PlanetMaterial: {fileID: 2100000, guid: 7be7d0f479bc54ad3aafd8501fa9ab10, type: 2}
+  SunMaterial: {fileID: 2100000, guid: 0bb76fd54ffbd46558b7b3ca9c2be68e, type: 2}
 --- !u!114 &11476400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -436,6 +451,40 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 0}
           m_MethodName: checkIfAllClicked
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11469728}
+          m_MethodName: swichMaterialIn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11469728}
+          m_MethodName: swichMaterialOut
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

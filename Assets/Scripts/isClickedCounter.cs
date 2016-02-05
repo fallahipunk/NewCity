@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+//using UnityEngine.UI;
 
 public class isClickedCounter : MonoBehaviour {
 
 	public bool allClicked = false;
+	public GameObject FinalCanvas;
+	public GameObject Reticle;
+
 	public Component[] flags;
 	// Use this for initialization
 	void Start () {
@@ -24,6 +28,9 @@ public class isClickedCounter : MonoBehaviour {
 		}
 		if (allClicked) {
 			Debug.Log ("In The Beginning There Was Space");
+			FinalCanvas.SetActive (true);
+			Reticle.SetActive (false);
+
 		}
 	}
 }
