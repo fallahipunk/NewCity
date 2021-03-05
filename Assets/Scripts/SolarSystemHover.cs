@@ -30,7 +30,7 @@ public class SolarSystemHover : MonoBehaviour {
 	public void swichMaterialOut (){
 		int i = 0; 
 		foreach (Transform child in transform) {
-			Debug.Log (child.name);
+			//Debug.Log (child.name);
 			if (child.name == "StarSphere" || child.name == "Particle System") {
 				child.gameObject.GetComponent<Renderer>().material = SunMaterial;
 			} else if (child.name == "CollisionCube") {
