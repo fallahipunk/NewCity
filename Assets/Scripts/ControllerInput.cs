@@ -40,6 +40,7 @@ public class ControllerInput : MonoBehaviour {
         }
         else
         {
+            if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
             startFollowing = true;
             // use mouse input
             //if (Input.GetMouseButtonDown(0))
