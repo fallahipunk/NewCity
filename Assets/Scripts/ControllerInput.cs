@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ControllerInput : MonoBehaviour {
 
@@ -20,6 +21,17 @@ public class ControllerInput : MonoBehaviour {
 
     SolarSystemHover lastHover = null;
 
+    public bool raycastUI;
+    public GraphicRaycaster graphicRaycaster;
+    ButtonHover lastButtonHover;
+
+    private void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        //lastMousePos = Input.mousePosition;
+    }
+
     // Update is called once per frame
     void Update () {
         if (Input.touchSupported)
@@ -28,18 +40,37 @@ public class ControllerInput : MonoBehaviour {
         }
         else
         {
+            startFollowing = true;
             // use mouse input
-            if (Input.GetMouseButtonDown(0))
-            {
-                startFollowing = true;
-                lastMousePos = Input.mousePosition;
-                mouseHoldDuration = 0;
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    startFollowing = true;
+            //    lastMousePos = Input.mousePosition;
+            //    mouseHoldDuration = 0;
+            //}
             if (Input.GetMouseButtonUp(0))
             {
-                startFollowing = false;
+                //startFollowing = false;
                 //// was this a click and not a hold/drag?
-                if (mouseHoldDuration < HOLD_THRESHOLD)
+                //if (mouseHoldDuration < HOLD_THRESHOLD)
+                //{
+                if (raycastUI)
+                {
+                    Vector3 virtualPos = new Vector3(0.5f, 0.5f, 0);
+                    var data = new PointerEventData(EventSystem.current);
+                    Ray ray = mainCam.ViewportPointToRay(virtualPos);
+                    var screenPoint = mainCam.ViewportToScreenPoint(virtualPos);
+                    data.position = new Vector2(screenPoint.x, screenPoint.y);// ray.origin;
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    graphicRaycaster.Raycast(data, results);
+                    LoadListScene loader = null;
+                    foreach (var r in results)
+                    {
+                        loader = r.gameObject.GetComponent<LoadListScene>();
+                        if (loader != null) { loader.BeginIsClicked(); }
+                    }
+                }
+                else
                 {
                     // raycast from center of screen
                     Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -49,7 +80,7 @@ public class ControllerInput : MonoBehaviour {
                         EventTrigger eventTrgr = hit.collider.gameObject.GetComponent<EventTrigger>();
                         if (eventTrgr != null)
                         {
-                            foreach(var e in eventTrgr.triggers)
+                            foreach (var e in eventTrgr.triggers)
                             {
                                 if (e.eventID == EventTriggerType.PointerClick)
                                 {
@@ -64,21 +95,68 @@ public class ControllerInput : MonoBehaviour {
                         }
                     }
                 }
+                //}
             }
         }
 
         // rotate screen
         if (startFollowing)
         {
-            mouseHoldDuration += Time.deltaTime;
-            if (mouseHoldDuration >= HOLD_THRESHOLD)
-            {
-                var delta = rotationScale * (Input.mousePosition - lastMousePos);
-                float rotationX = transform.localEulerAngles.y + delta.x;
-                rotationY += delta.y;
+            //mouseHoldDuration += Time.deltaTime;
+            //if (mouseHoldDuration >= HOLD_THRESHOLD)
+            //{
+                //var delta = rotationScale * (Input.mousePosition - lastMousePos);
+                //float rotationX = transform.localEulerAngles.y + delta.x;
+                //rotationY += delta.y;
+                float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X");
+                rotationY += Input.GetAxis("Mouse Y");
                 rotationY = Mathf.Clamp(rotationY, -89.9f, 89.9f);
                 transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+            if (raycastUI)
+            {
+                Vector3 virtualPos = new Vector3(0.5f, 0.5f, 0);
+                var data = new PointerEventData(EventSystem.current);
+                Ray ray = mainCam.ViewportPointToRay(virtualPos);
+                var screenPoint = mainCam.ViewportToScreenPoint(virtualPos);
+                data.position = new Vector2(screenPoint.x, screenPoint.y);// ray.origin;
+                List<RaycastResult> results = new List<RaycastResult>();
+                graphicRaycaster.Raycast(data, results);
+                //Debug.Log(results.Count);
+                bool buttonAvailable = false;
+                ButtonHover btn = null;
+                foreach (var r in results)
+                {
+                    btn = r.gameObject.GetComponent<ButtonHover>();
+                    if (btn != null)
+                    {
+                        buttonAvailable = true;
+                        break;
+                    }
+                }
 
+                if (buttonAvailable)
+                {
+                    if (btn != lastButtonHover)
+                    {
+                        Debug.Log("Selecting button: " + btn.gameObject.name);
+                        btn.buttonImageIn();
+                        btn.swichTextColorIn();
+                        lastButtonHover = btn;
+                    }
+                }
+                else
+                {
+                    if (lastButtonHover != null)
+                    {
+                        Debug.Log("Deselecting button: " + lastButtonHover.gameObject.name);
+                        lastButtonHover.buttonImageOut();
+                        lastButtonHover.swichTextColorOut();
+                        lastButtonHover = null;
+                    }
+                }
+            }
+            else
+            {
                 // raycast from center of screen
                 Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
                 RaycastHit hit;
@@ -102,10 +180,10 @@ public class ControllerInput : MonoBehaviour {
                     if (lastHover != null) { lastHover.swichMaterialOut(); }
                     lastHover = null;
                 }
-
-
             }
-            lastMousePos = Input.mousePosition;
+
+            //}
+            //lastMousePos = Input.mousePosition;
         }
     }
     
