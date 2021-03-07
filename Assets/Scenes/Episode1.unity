@@ -11464,12 +11464,12 @@ GameObject:
   - component: {fileID: 558155221}
   - component: {fileID: 558155220}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: FinalCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &558155219
 Transform:
   m_ObjectHideFlags: 0
@@ -16411,6 +16411,116 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60270cf52a5e94998a5a335989159738, type: 3}
+--- !u!1 &620127931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 620127932}
+  - component: {fileID: 620127937}
+  - component: {fileID: 620127936}
+  - component: {fileID: 620127934}
+  - component: {fileID: 620127933}
+  m_Layer: 0
+  m_Name: TextCube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &620127932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620127931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1056225879}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &620127933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620127931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 620127934}
+          m_TargetAssemblyTypeName: LoadText, Assembly-CSharp
+          m_MethodName: ContinueGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &620127934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620127931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416ca33f6f4e1fc4d9915d5b1a02af4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textIndex: 0
+  texts:
+  - {fileID: 4900000, guid: dd97614394f40dc4bb51c0fce180c9d4, type: 3}
+  - {fileID: 4900000, guid: f177692f81ae1aa4bb1273a4d762d1cb, type: 3}
+  - {fileID: 4900000, guid: ac1fdf42f2b46924589e84853b943fad, type: 3}
+  - {fileID: 4900000, guid: faf370941849d534090d1ed18894bc1c, type: 3}
+  - {fileID: 4900000, guid: b9daf6305b993a043af030910c32b4f4, type: 3}
+  - {fileID: 4900000, guid: d94ce40e54e8d014e8b65107b76d4f35, type: 3}
+  - {fileID: 4900000, guid: 06e4b47049995444d9f848107291cbd6, type: 3}
+  - {fileID: 4900000, guid: 43c1af65c537c954ca4dd087b24174a7, type: 3}
+  displayText: {fileID: 723567819}
+  finalCube: {fileID: 558155218}
+  Reticle: {fileID: 740196864}
+  episodeCanvas: {fileID: 1056225878}
+--- !u!65 &620127936
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620127931}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &620127937
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620127931}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &643705465
 GameObject:
   m_ObjectHideFlags: 0
@@ -17509,6 +17619,7 @@ RectTransform:
   m_Children:
   - {fileID: 723567818}
   - {fileID: 558155219}
+  - {fileID: 620127932}
   m_Father: {fileID: 1887827220}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
