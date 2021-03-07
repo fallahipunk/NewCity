@@ -10032,7 +10032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allClicked: 0
   FinalCanvas: {fileID: 1056225878}
-  Reticle: {fileID: 271122257}
+  Reticle: {fileID: 740196864}
   flags: []
 --- !u!1 &212959903
 GameObject:
@@ -10307,12 +10307,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247343619}
   m_CullTransparentMesh: 1
---- !u!1 &271122257 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 171526, guid: 60270cf52a5e94998a5a335989159738,
-    type: 3}
-  m_PrefabInstance: {fileID: 599687830}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &285917298
 GameObject:
   m_ObjectHideFlags: 0
@@ -16923,7 +16917,7 @@ GameObject:
   - component: {fileID: 740196867}
   - component: {fileID: 740196866}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
