@@ -29,90 +29,55 @@ public class ControllerInput : MonoBehaviour {
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        //lastMousePos = Input.mousePosition;
     }
 
     // Update is called once per frame
     void Update () {
-        if (Input.touchSupported)
+        if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
+        Vector2 delta = Vector2.zero;
+        if (Input.touchCount > 0)
         {
-            // use touch input
+            Touch t = Input.GetTouch(0);
+            switch (t.phase)
+            {
+                case TouchPhase.Began:
+                    startFollowing = true;
+                    mouseHoldDuration = 0;
+                    break;
+                case TouchPhase.Moved:
+                    delta = rotationScale * t.deltaPosition;
+                    break;
+                case TouchPhase.Stationary:
+                    break;
+                case TouchPhase.Ended:
+                    if (mouseHoldDuration < HOLD_THRESHOLD) { ClickHandler(); }
+                    startFollowing = true;
+                    break;
+                case TouchPhase.Canceled:
+                    if (mouseHoldDuration < HOLD_THRESHOLD) { ClickHandler(); }
+                    startFollowing = true;
+                    break;
+                default:
+                    break;
+            }
         }
         else
         {
-            if (Input.GetKey(KeyCode.Escape)) { Application.Quit(); }
             startFollowing = true;
-            // use mouse input
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    startFollowing = true;
-            //    lastMousePos = Input.mousePosition;
-            //    mouseHoldDuration = 0;
-            //}
-            if (Input.GetMouseButtonUp(0))
-            {
-                //startFollowing = false;
-                //// was this a click and not a hold/drag?
-                //if (mouseHoldDuration < HOLD_THRESHOLD)
-                //{
-                if (raycastUI)
-                {
-                    Vector3 virtualPos = new Vector3(0.5f, 0.5f, 0);
-                    var data = new PointerEventData(EventSystem.current);
-                    Ray ray = mainCam.ViewportPointToRay(virtualPos);
-                    var screenPoint = mainCam.ViewportToScreenPoint(virtualPos);
-                    data.position = new Vector2(screenPoint.x, screenPoint.y);// ray.origin;
-                    List<RaycastResult> results = new List<RaycastResult>();
-                    graphicRaycaster.Raycast(data, results);
-                    LoadListScene loader = null;
-                    foreach (var r in results)
-                    {
-                        loader = r.gameObject.GetComponent<LoadListScene>();
-                        if (loader != null) { loader.BeginIsClicked(); }
-                    }
-                }
-                else
-                {
-                    // raycast from center of screen
-                    Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        EventTrigger eventTrgr = hit.collider.gameObject.GetComponent<EventTrigger>();
-                        if (eventTrgr != null)
-                        {
-                            foreach (var e in eventTrgr.triggers)
-                            {
-                                if (e.eventID == EventTriggerType.PointerClick)
-                                {
-                                    for (int i = 0; i < e.callback.GetPersistentEventCount(); i++)
-                                    {
-                                        e.callback.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
-                                        e.callback.Invoke(new BaseEventData(EventSystem.current));
-                                        e.callback.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.Off);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                //}
-            }
+            delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            if (Input.GetMouseButtonUp(0)) { ClickHandler(); }
         }
 
         // rotate screen
         if (startFollowing)
         {
-            //mouseHoldDuration += Time.deltaTime;
-            //if (mouseHoldDuration >= HOLD_THRESHOLD)
-            //{
-                //var delta = rotationScale * (Input.mousePosition - lastMousePos);
-                //float rotationX = transform.localEulerAngles.y + delta.x;
-                //rotationY += delta.y;
-                float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X");
-                rotationY += Input.GetAxis("Mouse Y");
-                rotationY = Mathf.Clamp(rotationY, -89.9f, 89.9f);
-                transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+            mouseHoldDuration += Time.deltaTime;
+            float rotationX = transform.localEulerAngles.y + delta.x;
+            rotationY += delta.y;
+            rotationY = Mathf.Clamp(rotationY, -89.9f, 89.9f);
+            transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+
+            // raycast from center of screen
             if (raycastUI)
             {
                 Vector3 virtualPos = new Vector3(0.5f, 0.5f, 0);
@@ -122,7 +87,6 @@ public class ControllerInput : MonoBehaviour {
                 data.position = new Vector2(screenPoint.x, screenPoint.y);// ray.origin;
                 List<RaycastResult> results = new List<RaycastResult>();
                 graphicRaycaster.Raycast(data, results);
-                //Debug.Log(results.Count);
                 bool buttonAvailable = false;
                 ButtonHover btn = null;
                 foreach (var r in results)
@@ -158,7 +122,6 @@ public class ControllerInput : MonoBehaviour {
             }
             else
             {
-                // raycast from center of screen
                 Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
@@ -182,10 +145,51 @@ public class ControllerInput : MonoBehaviour {
                     lastHover = null;
                 }
             }
-
-            //}
-            //lastMousePos = Input.mousePosition;
         }
     }
     
+    void ClickHandler()
+    {
+        if (raycastUI)
+        {
+            Vector3 virtualPos = new Vector3(0.5f, 0.5f, 0);
+            var data = new PointerEventData(EventSystem.current);
+            Ray ray = mainCam.ViewportPointToRay(virtualPos);
+            var screenPoint = mainCam.ViewportToScreenPoint(virtualPos);
+            data.position = new Vector2(screenPoint.x, screenPoint.y);// ray.origin;
+            List<RaycastResult> results = new List<RaycastResult>();
+            graphicRaycaster.Raycast(data, results);
+            LoadListScene loader = null;
+            foreach (var r in results)
+            {
+                loader = r.gameObject.GetComponent<LoadListScene>();
+                if (loader != null) { loader.BeginIsClicked(); }
+            }
+        }
+        else
+        {
+            // raycast from center of screen
+            Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                EventTrigger eventTrgr = hit.collider.gameObject.GetComponent<EventTrigger>();
+                if (eventTrgr != null)
+                {
+                    foreach (var e in eventTrgr.triggers)
+                    {
+                        if (e.eventID == EventTriggerType.PointerClick)
+                        {
+                            for (int i = 0; i < e.callback.GetPersistentEventCount(); i++)
+                            {
+                                e.callback.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
+                                e.callback.Invoke(new BaseEventData(EventSystem.current));
+                                e.callback.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.Off);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
