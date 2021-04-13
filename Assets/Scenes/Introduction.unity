@@ -1192,7 +1192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: A NEW CITY
+  m_Text: NEW CITY
 --- !u!222 &1939034932
 CanvasRenderer:
   m_ObjectHideFlags: 0
